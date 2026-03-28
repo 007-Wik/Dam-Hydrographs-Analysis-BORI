@@ -1,0 +1,45 @@
+cff-version: 1.2.0
+message: "If you use this analysis or data in your work, please cite it as below."
+type: software
+title: "Kurnur (BORI) Dam: Dam Breach & Hydrograph Analysis"
+abstract: >
+  Engineering-grade post-processing and visualization of HEC-RAS dam breach
+  and controlled release hydrographs for Kurnur (BORI) Dam, Solapur District,
+  Maharashtra. Covers piping failure, overtopping failure, and large controlled
+  release scenarios. Prepared for regulatory submission to CWC / SDSO Maharashtra
+  in accordance with the Dam Safety Act 2021 and CWC Guidelines for Dam Break Analysis.
+authors:
+  - family-names: Udupi
+    given-names: Satwik
+    orcid: ""
+    email: ""
+    affiliation: "Independent – Agricultural & Hydraulic Engineering"
+version: "2.0.0"
+date-released: "2025-01-01"
+license: MIT
+repository-code: "https://github.com/<your-username>/BORI-DAM-breach-plots"
+keywords:
+  - dam safety
+  - dam break analysis
+  - hydrograph
+  - HEC-RAS
+  - piping failure
+  - overtopping failure
+  - Maharashtra
+  - Kurnur dam
+  - BORI river
+  - hydraulic engineering
+  - CWC guidelines
+  - Emergency Action Plan
+references:
+  - type: standard
+    title: "Guidelines for Dam Break Analysis"
+    authors:
+      - name: "Central Water Commission (CWC)"
+    institution:
+      name: "Ministry of Jal Shakti, Government of India"
+  - type: standard
+    title: "The Dam Safety Act, 2021"
+    authors:
+      - name: "Government of India"
+    year: 2021

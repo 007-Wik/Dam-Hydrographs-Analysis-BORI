@@ -1,0 +1,2 @@
+This directory holds processed/derived data outputs.
+Raw data is stored in data/raw/ and must not be modified.

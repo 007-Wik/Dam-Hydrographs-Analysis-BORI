@@ -1,0 +1,227 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 280" width="900" height="280">
+  <defs>
+    <!-- Sky gradient -->
+    <linearGradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a1628;stop-opacity:1" />
+      <stop offset="60%" style="stop-color:#0d2547;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1a3a6e;stop-opacity:1" />
+    </linearGradient>
+    <!-- Water gradient -->
+    <linearGradient id="waterGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e5799;stop-opacity:0.9" />
+      <stop offset="100%" style="stop-color:#0d3060;stop-opacity:1" />
+    </linearGradient>
+    <!-- Dam gradient -->
+    <linearGradient id="damGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4a5568" />
+      <stop offset="100%" style="stop-color:#2d3748" />
+    </linearGradient>
+    <!-- Glow filter for text -->
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <!-- Water wave filter -->
+    <filter id="waveDist" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.015 0.08" numOctaves="2" seed="3" result="noise">
+        <animate attributeName="baseFrequency" values="0.015 0.08;0.018 0.09;0.015 0.08" dur="6s" repeatCount="indefinite"/>
+      </feTurbulence>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="5" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <!-- Subtle grid pattern -->
+    <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse" opacity="0.06">
+      <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#4fc3f7" stroke-width="0.5"/>
+    </pattern>
+    <!-- Hydrograph gradient -->
+    <linearGradient id="hydrographFill" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#4fc3f7;stop-opacity:0.6"/>
+      <stop offset="100%" style="stop-color:#4fc3f7;stop-opacity:0.0"/>
+    </linearGradient>
+    <!-- Clip path for hydrograph area -->
+    <clipPath id="graphClip">
+      <rect x="580" y="40" width="290" height="180"/>
+    </clipPath>
+  </defs>
+
+  <!-- Background sky -->
+  <rect width="900" height="280" fill="url(#skyGrad)"/>
+  <!-- Grid overlay -->
+  <rect width="900" height="280" fill="url(#grid)"/>
+
+  <!-- Stars (subtle) -->
+  <g opacity="0.5">
+    <circle cx="50" cy="25" r="0.8" fill="white"><animate attributeName="opacity" values="0.5;1;0.5" dur="3s" repeatCount="indefinite"/></circle>
+    <circle cx="120" cy="15" r="0.6" fill="white"><animate attributeName="opacity" values="1;0.3;1" dur="4s" repeatCount="indefinite"/></circle>
+    <circle cx="200" cy="30" r="0.9" fill="white"><animate attributeName="opacity" values="0.3;1;0.3" dur="2.5s" repeatCount="indefinite"/></circle>
+    <circle cx="350" cy="20" r="0.7" fill="white"><animate attributeName="opacity" values="1;0.4;1" dur="3.5s" repeatCount="indefinite"/></circle>
+    <circle cx="480" cy="12" r="0.6" fill="white"><animate attributeName="opacity" values="0.4;1;0.4" dur="4.2s" repeatCount="indefinite"/></circle>
+    <circle cx="540" cy="35" r="1" fill="white"><animate attributeName="opacity" values="1;0.5;1" dur="2.8s" repeatCount="indefinite"/></circle>
+  </g>
+
+  <!-- Mountain silhouettes in background -->
+  <polygon points="0,200 80,110 160,170 240,100 330,160 420,90 500,155 580,200" fill="#0d1f3c" opacity="0.7"/>
+  <polygon points="0,200 60,140 130,180 200,130 280,155 360,120 430,165 500,200" fill="#0f2444" opacity="0.8"/>
+
+  <!-- Reservoir water body -->
+  <path d="M 0,175 Q 100,165 200,170 Q 300,175 370,168 L 370,230 L 0,230 Z" fill="url(#waterGrad)" opacity="0.85"/>
+  <!-- Water surface shimmer -->
+  <path d="M 0,170 Q 60,165 120,170 Q 180,175 250,168 Q 320,162 370,168" fill="none" stroke="#4fc3f7" stroke-width="1.5" opacity="0.5" filter="url(#waveDist)">
+    <animate attributeName="d" values="M 0,170 Q 60,165 120,170 Q 180,175 250,168 Q 320,162 370,168;M 0,172 Q 60,167 120,172 Q 180,177 250,170 Q 320,164 370,170;M 0,170 Q 60,165 120,170 Q 180,175 250,168 Q 320,162 370,168" dur="4s" repeatCount="indefinite"/>
+  </path>
+  <!-- Water sparkles -->
+  <g fill="#7dd3fc" opacity="0.4">
+    <ellipse cx="80" cy="175" rx="15" ry="2"><animate attributeName="opacity" values="0.4;0.8;0.4" dur="2s" repeatCount="indefinite"/></ellipse>
+    <ellipse cx="200" cy="172" rx="20" ry="2"><animate attributeName="opacity" values="0.6;0.2;0.6" dur="3s" repeatCount="indefinite"/></ellipse>
+    <ellipse cx="300" cy="176" rx="12" ry="1.5"><animate attributeName="opacity" values="0.3;0.7;0.3" dur="2.5s" repeatCount="indefinite"/></ellipse>
+  </g>
+
+  <!-- Dam body (trapezoid) -->
+  <polygon points="355,145 395,145 420,240 330,240" fill="url(#damGrad)" stroke="#718096" stroke-width="1.5"/>
+  <!-- Dam crest detail -->
+  <rect x="352" y="140" width="46" height="8" fill="#4a5568" rx="1"/>
+  <!-- Dam facing stones -->
+  <line x1="356" y1="155" x2="416" y2="230" stroke="#5a6478" stroke-width="0.5" opacity="0.6"/>
+  <line x1="363" y1="153" x2="418" y2="230" stroke="#5a6478" stroke-width="0.5" opacity="0.6"/>
+  <line x1="370" y1="152" x2="419" y2="228" stroke="#5a6478" stroke-width="0.5" opacity="0.6"/>
+  <line x1="378" y1="151" x2="420" y2="228" stroke="#5a6478" stroke-width="0.5" opacity="0.6"/>
+  <!-- Horizontal stone lines -->
+  <line x1="356" y1="163" x2="406" y2="163" stroke="#5a6478" stroke-width="0.5" opacity="0.5"/>
+  <line x1="355" y1="178" x2="411" y2="178" stroke="#5a6478" stroke-width="0.5" opacity="0.5"/>
+  <line x1="348" y1="195" x2="415" y2="195" stroke="#5a6478" stroke-width="0.5" opacity="0.5"/>
+  <line x1="344" y1="212" x2="419" y2="212" stroke="#5a6478" stroke-width="0.5" opacity="0.5"/>
+
+  <!-- Downstream channel/tail water -->
+  <path d="M 420,225 L 900,225 L 900,280 L 0,280 L 0,230 L 330,230 Z" fill="#0d2040" opacity="0.95"/>
+  <!-- Downstream water surface -->
+  <path d="M 430,218 Q 550,212 700,218 Q 820,222 900,215" fill="none" stroke="#38bdf8" stroke-width="1" opacity="0.4">
+    <animate attributeName="d" values="M 430,218 Q 550,212 700,218 Q 820,222 900,215;M 430,220 Q 550,214 700,220 Q 820,224 900,217;M 430,218 Q 550,212 700,218 Q 820,222 900,215" dur="5s" repeatCount="indefinite"/>
+  </path>
+
+  <!-- Breach flow (animated water discharge) -->
+  <g>
+    <!-- Main breach jet -->
+    <path d="M 395,170 Q 430,180 470,195 Q 520,215 560,220" fill="none" stroke="#38bdf8" stroke-width="4" opacity="0" stroke-linecap="round">
+      <animate attributeName="opacity" values="0;0.9;0.7;0.9;0" dur="3s" begin="1s" repeatCount="indefinite"/>
+    </path>
+    <path d="M 395,175 Q 440,190 490,205 Q 530,215 560,222" fill="none" stroke="#7dd3fc" stroke-width="2" opacity="0">
+      <animate attributeName="opacity" values="0;0.6;0.4;0.6;0" dur="3s" begin="1.3s" repeatCount="indefinite"/>
+    </path>
+    <!-- Splash droplets -->
+    <circle cx="450" cy="200" r="2" fill="#38bdf8" opacity="0">
+      <animate attributeName="opacity" values="0;0.8;0" dur="1.5s" begin="1.5s" repeatCount="indefinite"/>
+      <animate attributeName="cy" values="200;195;210" dur="1.5s" begin="1.5s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="500" cy="210" r="1.5" fill="#7dd3fc" opacity="0">
+      <animate attributeName="opacity" values="0;0.6;0" dur="1.5s" begin="2s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+
+  <!-- Right side: Engineering hydrograph panel -->
+  <rect x="575" y="30" width="305" height="210" rx="6" fill="#071425" opacity="0.85" stroke="#1e4d7b" stroke-width="1"/>
+  <!-- Panel header bar -->
+  <rect x="575" y="30" width="305" height="28" rx="6" fill="#0d2547" opacity="1"/>
+  <rect x="575" y="46" width="305" height="12" rx="0" fill="#0d2547" opacity="1"/>
+
+  <!-- Axis lines -->
+  <line x1="605" y1="58" x2="605" y2="218" stroke="#2d5a8e" stroke-width="1"/>
+  <line x1="605" y1="218" x2="870" y2="218" stroke="#2d5a8e" stroke-width="1"/>
+
+  <!-- Grid lines -->
+  <g stroke="#1e3a5f" stroke-width="0.5" stroke-dasharray="3,4">
+    <line x1="605" y1="178" x2="870" y2="178"/>
+    <line x1="605" y1="138" x2="870" y2="138"/>
+    <line x1="605" y1="98" x2="870" y2="98"/>
+    <line x1="605" y1="58" x2="870" y2="58"/>
+    <line x1="671" y1="58" x2="671" y2="218"/>
+    <line x1="737" y1="58" x2="737" y2="218"/>
+    <line x1="803" y1="58" x2="803" y2="218"/>
+  </g>
+
+  <!-- Piping hydrograph (blue) – fill area -->
+  <path d="M 605,215 L 620,213 L 640,208 L 660,195 L 680,165 L 695,100 L 710,70 L 725,85 L 740,120 L 760,160 L 785,190 L 820,208 L 860,214 L 870,215 Z" fill="url(#hydrographFill)" clip-path="url(#graphClip)">
+    <animate attributeName="d" values="M 605,215 L 620,213 L 640,208 L 660,195 L 680,165 L 695,100 L 710,70 L 725,85 L 740,120 L 760,160 L 785,190 L 820,208 L 860,214 L 870,215 Z;M 605,215 L 620,213 L 640,207 L 660,193 L 680,163 L 695,98 L 710,68 L 725,83 L 740,118 L 760,158 L 785,188 L 820,206 L 860,212 L 870,215 Z;M 605,215 L 620,213 L 640,208 L 660,195 L 680,165 L 695,100 L 710,70 L 725,85 L 740,120 L 760,160 L 785,190 L 820,208 L 860,214 L 870,215 Z" dur="4s" repeatCount="indefinite"/>
+  </path>
+
+  <!-- Piping hydrograph line (bright blue) -->
+  <polyline points="605,215 620,213 640,208 660,195 680,165 695,100 710,70 725,85 740,120 760,160 785,190 820,208 860,214 870,215" fill="none" stroke="#38bdf8" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" filter="url(#glow)">
+    <animate attributeName="points" values="605,215 620,213 640,208 660,195 680,165 695,100 710,70 725,85 740,120 760,160 785,190 820,208 860,214 870,215;605,215 620,213 640,207 660,193 680,163 695,98 710,68 725,83 740,118 760,158 785,188 820,206 860,212 870,215;605,215 620,213 640,208 660,195 680,165 695,100 710,70 725,85 740,120 760,160 785,190 820,208 860,214 870,215" dur="4s" repeatCount="indefinite"/>
+  </polyline>
+
+  <!-- Overtopping hydrograph (orange) -->
+  <polyline points="605,215 615,212 625,205 640,175 652,110 660,65 672,75 688,130 705,170 730,195 770,208 820,213 870,215" fill="none" stroke="#fb923c" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="4,2" opacity="0.9">
+    <animate attributeName="opacity" values="0.9;0.5;0.9" dur="3s" repeatCount="indefinite"/>
+  </polyline>
+
+  <!-- Controlled release (green) -->
+  <polyline points="605,215 620,214 640,212 660,208 680,200 700,192 720,185 740,180 760,178 790,178 820,180 850,183 870,185" fill="none" stroke="#4ade80" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="6,3" opacity="0.7">
+    <animate attributeName="opacity" values="0.7;1;0.7" dur="5s" repeatCount="indefinite"/>
+  </polyline>
+
+  <!-- Peak marker on piping curve -->
+  <line x1="710" y1="58" x2="710" y2="218" stroke="#f472b6" stroke-width="1" stroke-dasharray="2,3" opacity="0.6"/>
+  <circle cx="710" cy="70" r="4" fill="#f472b6" opacity="0.9">
+    <animate attributeName="r" values="4;6;4" dur="2s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.9;0.5;0.9" dur="2s" repeatCount="indefinite"/>
+  </circle>
+  <text x="714" y="68" font-family="monospace" font-size="7" fill="#f472b6" opacity="0.9">Q_peak</text>
+
+  <!-- Axis labels -->
+  <text x="592" y="220" font-family="monospace" font-size="7.5" fill="#4fc3f7" transform="rotate(-90,592,220)" text-anchor="end">Elevation (m)</text>
+  <text x="738" y="232" font-family="monospace" font-size="7.5" fill="#4fc3f7" text-anchor="middle">Time →</text>
+  <text x="875" y="140" font-family="monospace" font-size="7" fill="#fb923c" transform="rotate(90,875,140)" text-anchor="middle">Discharge (m³/s)</text>
+
+  <!-- Panel legend -->
+  <line x1="612" y1="44" x2="628" y2="44" stroke="#38bdf8" stroke-width="2"/>
+  <text x="631" y="47" font-family="monospace" font-size="7.5" fill="#a0c4e8">Piping</text>
+  <line x1="668" y1="44" x2="684" y2="44" stroke="#fb923c" stroke-width="2" stroke-dasharray="3,2"/>
+  <text x="687" y="47" font-family="monospace" font-size="7.5" fill="#a0c4e8">Overtop</text>
+  <line x1="730" y1="44" x2="746" y2="44" stroke="#4ade80" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <text x="749" y="47" font-family="monospace" font-size="7.5" fill="#a0c4e8">LCR</text>
+
+  <!-- Panel title -->
+  <text x="800" y="44" font-family="monospace" font-size="8" fill="#64b5f6" text-anchor="middle">HYDROGRAPH ANALYSIS</text>
+
+  <!-- Main title block (left/center) -->
+  <!-- Kurnur dam label -->
+  <text x="30" y="58" font-family="'Courier New', monospace" font-size="10" fill="#4fc3f7" opacity="0.7" letter-spacing="3">GOVERNMENT OF MAHARASHTRA · DAM SAFETY</text>
+
+  <!-- Main title -->
+  <text x="28" y="100" font-family="'Arial', sans-serif" font-size="34" font-weight="900" fill="white" filter="url(#glow)" letter-spacing="1">KURNUR (BORI) DAM</text>
+
+  <!-- Subtitle -->
+  <text x="30" y="128" font-family="'Arial', sans-serif" font-size="15" font-weight="600" fill="#7dd3fc" letter-spacing="2">Dam Breach &amp; Hydrograph Analysis</text>
+
+  <!-- Animated underline under title -->
+  <rect x="28" y="134" height="2" rx="1" fill="#38bdf8">
+    <animate attributeName="width" values="0;400;400" dur="2s" fill="freeze"/>
+  </rect>
+
+  <!-- Tag pills -->
+  <g transform="translate(28, 148)">
+    <!-- Piping tag -->
+    <rect x="0" y="0" width="78" height="18" rx="9" fill="#1e3a5f" stroke="#38bdf8" stroke-width="1"/>
+    <text x="39" y="12.5" font-family="monospace" font-size="8.5" fill="#7dd3fc" text-anchor="middle">⚠ PIPING BREACH</text>
+    <!-- Overtopping tag -->
+    <rect x="84" y="0" width="92" height="18" rx="9" fill="#3d1f00" stroke="#fb923c" stroke-width="1"/>
+    <text x="130" y="12.5" font-family="monospace" font-size="8.5" fill="#fdba74" text-anchor="middle">▲ OVERTOPPING</text>
+    <!-- Controlled tag -->
+    <rect x="182" y="0" width="102" height="18" rx="9" fill="#052e16" stroke="#4ade80" stroke-width="1"/>
+    <text x="233" y="12.5" font-family="monospace" font-size="8.5" fill="#86efac" text-anchor="middle">● CONTROLLED RELEASE</text>
+  </g>
+
+  <!-- Bottom info bar -->
+  <rect x="0" y="250" width="900" height="30" fill="#071525" opacity="0.95"/>
+  <text x="18" y="269" font-family="monospace" font-size="8" fill="#4fc3f7">📍 Solapur District, Maharashtra, India</text>
+  <text x="220" y="269" font-family="monospace" font-size="8" fill="#4fc3f7">|  🐍 Python · HEC-RAS · Pandas · Matplotlib · Plotly</text>
+  <text x="570" y="269" font-family="monospace" font-size="8" fill="#4fc3f7">|  📋 CWC · FEMA · USACE Guidelines</text>
+  <text x="790" y="269" font-family="monospace" font-size="8" fill="#64b5f6">v2.0.0 · 2025</text>
+
+  <!-- Animated scan line (subtle) -->
+  <rect x="0" y="0" width="900" height="3" fill="#4fc3f7" opacity="0.07">
+    <animate attributeName="y" values="0;280;0" dur="6s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0;0.07;0" dur="6s" repeatCount="indefinite"/>
+  </rect>
+</svg>

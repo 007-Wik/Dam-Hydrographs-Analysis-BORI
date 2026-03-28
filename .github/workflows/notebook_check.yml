@@ -1,0 +1,77 @@
+name: Notebook Lint & Structure Check
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  lint-and-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install nbformat nbconvert
+
+      - name: Validate notebook JSON structure
+        run: |
+          python - <<'EOF'
+          import os, json, sys
+          nb_dir = "notebooks"
+          errors = []
+          for f in sorted(os.listdir(nb_dir)):
+              if f.endswith(".ipynb"):
+                  path = os.path.join(nb_dir, f)
+                  try:
+                      with open(path) as fh:
+                          nb = json.load(fh)
+                      assert "cells" in nb, f"{f}: missing 'cells' key"
+                      print(f"  OK  {f}  ({len(nb['cells'])} cells)")
+                  except Exception as e:
+                      errors.append(f"FAIL {f}: {e}")
+          if errors:
+              print("\nErrors found:")
+              for e in errors: print(" ", e)
+              sys.exit(1)
+          print(f"\nAll {len(os.listdir(nb_dir))} notebooks passed validation.")
+          EOF
+
+      - name: Verify data integrity (checksums)
+        run: |
+          sha256sum -c data/metadata/checksums.sha256
+          echo "All data file checksums verified OK."
+
+      - name: Check required files exist
+        run: |
+          python - <<'EOF'
+          import os, sys
+          required = [
+              "README.md", "LICENSE", "CITATION.cff", "CHANGELOG.md",
+              "assets/banners/banner.svg",
+              "data/metadata/DATA_DICTIONARY.md",
+              "data/metadata/checksums.sha256",
+              "docs/methodology/METHODOLOGY.md",
+              "docs/regulatory/REGULATORY_ALIGNMENT.md",
+              "references/REFERENCES.md",
+              "environment/requirements.txt",
+              "environment/environment.yml",
+              "src/utils/plot_config.py",
+              "src/utils/data_loader.py",
+          ]
+          missing = [f for f in required if not os.path.exists(f)]
+          if missing:
+              print("Missing required files:")
+              for f in missing: print(f"  {f}")
+              sys.exit(1)
+          print(f"All {len(required)} required files present.")
+          EOF
